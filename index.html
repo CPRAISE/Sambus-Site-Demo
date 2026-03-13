@@ -12,53 +12,57 @@
             --accent: #f39c12;
             --light: #f8f9fa;
             --dark: #1a1a1a;
-            --transition: all 0.4s ease;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { overflow-x: hidden; background-color: #fff; }
         
-        /* Utility for Scroll Animations */
-        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease-out; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* 1. Top Ribbon */
-        .top-ribbon {
-            background: var(--secondary);
-            color: white;
-            padding: 8px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
+        /* Section Titles Styling */
+        .section-title { 
+            text-align: center; 
+            font-size: 2.5rem; 
+            margin-bottom: 50px; 
+            color: var(--secondary);
+            position: relative;
+            padding-bottom: 15px;
         }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #003366; /* Fancy Dark Blue */
+            border-radius: 2px;
+        }
+
+        /* 1. Top Ribbon */
+        .top-ribbon { background: var(--secondary); color: white; padding: 8px 5%; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
         .top-ribbon .socials i { margin-left: 15px; cursor: pointer; transition: var(--transition); }
         .top-ribbon .socials i:hover { color: var(--accent); }
 
         /* 2. Header */
-        header {
-            background: white;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+        header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
         .logo-area { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 1.5rem; color: var(--primary); }
         nav ul { display: flex; list-style: none; gap: 20px; }
         nav ul li a { text-decoration: none; color: var(--secondary); font-weight: 500; transition: var(--transition); }
         nav ul li a:hover { color: var(--primary); }
 
-        /* 3. Intro Section (Video/Text Switcher) */
-        .intro-section { display: flex; height: 60vh; background: #000; overflow: hidden; }
+        /* 3. Intro Section (Increased height by 25%) */
+        .intro-section { display: flex; height: 75vh; background: #000; overflow: hidden; }
         .video-container { width: 75%; position: relative; }
         .video-container video { width: 100%; height: 100%; object-fit: cover; }
         .text-switcher { 
             width: 25%; 
-            background: var(--primary); 
+            background: linear-gradient(rgba(0, 86, 179, 0.85), rgba(0, 86, 179, 0.85)), url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80&w=500'); 
+            background-size: cover;
+            background-position: center;
             color: white; 
             display: flex; 
             align-items: center; 
@@ -66,7 +70,7 @@
             padding: 40px; 
             text-align: center;
         }
-        .fade-text { font-size: 1.8rem; font-weight: bold; display: none; animation: fadeIn 1s; }
+        .fade-text { font-size: 1.8rem; font-weight: bold; display: none; animation: fadeIn 1s; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         .fade-text.active { display: block; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -74,96 +78,90 @@
         /* 4. Project Flip Cards */
         .section-padding { padding: 80px 5%; }
         .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        
-        .flip-card { background-color: transparent; height: 350px; perspective: 1000px; cursor: pointer; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card { height: 350px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
-        .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 10px; overflow: hidden; }
         .flip-front img { width: 100%; height: 100%; object-fit: cover; }
-        .flip-back { background-color: var(--primary); color: white; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; padding: 20px; }
+        .flip-back { background-color: var(--primary); color: white; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; padding: 20px; text-align: center; }
 
-        /* 5 & 6. Hero Sections */
-        .hero-row { display: flex; align-items: center; gap: 50px; margin-bottom: 50px; flex-wrap: wrap; }
-        .hero-text { flex: 1; min-width: 300px; }
-        .hero-video { flex: 1; min-width: 300px; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        /* 5 & 6. Hero Sections + Hover Cards */
+        .hero-row { display: flex; align-items: center; gap: 50px; margin-bottom: 80px; flex-wrap: wrap; }
+        .hero-card { 
+            flex: 1; min-width: 300px; 
+            padding: 40px; border-radius: 15px; 
+            background: #fdfdfd; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        .hero-card:hover { background: var(--primary); color: white; transform: translateY(-10px); }
+        .hero-card:hover h1, .hero-card:hover p { color: white !important; }
+        .btn-learn { 
+            display: inline-block; margin-top: 25px; padding: 12px 25px; 
+            background: var(--accent); color: white; border: none; border-radius: 5px; 
+            cursor: pointer; font-weight: bold; text-decoration: none; transition: 0.3s;
+        }
+        .btn-learn:hover { background: #d4840b; transform: scale(1.05); }
+        .hero-video { flex: 1; min-width: 300px; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
         .hero-video video { width: 100%; display: block; }
         .reverse { flex-direction: row-reverse; }
 
-        /* 7. Alliance Cards */
+        /* Alliance Cards */
         .alliance-card { height: 200px; }
-        .alliance-front { background: white; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .alliance-front img { max-width: 80%; filter: grayscale(100%); transition: 0.3s; }
-        .alliance-card:hover .alliance-front img { filter: grayscale(0%); }
+        .alliance-front { background: white; display: flex; align-items: center; justify-content: center; border: 1px solid #eee; }
+        .alliance-front h3 { color: var(--secondary); }
 
-        /* 8. Partner Slider */
+        /* Slider Animations */
         .slider { overflow: hidden; padding: 40px 0; background: #fff; white-space: nowrap; position: relative; }
         .slide-track { display: flex; width: calc(250px * 20); animation: scrollLeft 30s linear infinite; }
         .slide { width: 250px; display: flex; align-items: center; justify-content: center; }
         .slide img { width: 150px; filter: grayscale(100%); opacity: 0.6; }
         @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-250px * 10)); } }
 
-        /* 9. Testimonials */
-        .testimonial-container { position: relative; max-width: 800px; margin: auto; text-align: center; }
-        .testimonial-slide { display: none; padding: 40px; }
-        .testimonial-slide.active { display: block; animation: fadeIn 0.5s; }
-        .client-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 3px solid var(--primary); }
-        .arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; cursor: pointer; color: var(--primary); z-index: 10; }
-        .prev { left: -50px; } .next { right: -50px; }
-
-        /* 10. Gallery Slider */
-        .gallery-track { display: flex; animation: scrollLeft 40s linear infinite; }
+        /* 10. Gallery & Overlay */
+        .gallery-item { cursor: pointer; transition: var(--transition); }
+        .gallery-item:hover { transform: scale(1.1); z-index: 5; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .gallery-track { display: flex; animation: scrollLeft 40s linear infinite; padding: 20px 0; }
         .gallery-item img { width: 300px; height: 200px; object-fit: cover; margin-right: 15px; border-radius: 8px; }
 
-        /* 11. Footer */
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 2000;
+            display: none; justify-content: center; align-items: center;
+        }
+        #overlay img { max-width: 80%; max-height: 80%; border: 5px solid white; border-radius: 5px; }
+        .overlay-close { position: absolute; top: 20px; right: 40px; color: white; font-size: 3rem; cursor: pointer; }
+        .overlay-nav { position: absolute; top: 50%; width: 95%; display: flex; justify-content: space-between; color: white; font-size: 3rem; pointer-events: none; }
+        .overlay-nav i { cursor: pointer; pointer-events: auto; }
+
+        /* Footer & ScrollTop */
         footer { background: var(--secondary); color: white; padding: 60px 5% 20px; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
-        .footer-col h4 { margin-bottom: 20px; border-bottom: 2px solid var(--primary); display: inline-block; }
-        .footer-col p, .footer-col li { font-size: 0.9rem; margin-bottom: 10px; list-style: none; opacity: 0.8; }
-        
-        /* 12. Bottom Credit */
-        .bottom-bar { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
-        #scrollTop { 
-            background: var(--accent); color: white; border: none; padding: 10px 15px; 
-            border-radius: 5px; cursor: pointer; transition: 0.3s;
-        }
+        #scrollTop { background: var(--accent); color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .intro-section { flex-direction: column; height: auto; }
-            .video-container, .text-switcher { width: 100%; height: 300px; }
-            nav ul { display: none; } /* Simplified for demo */
-            .prev, .next { display: none; }
+            .video-container { width: 100%; height: 350px; }
+            .text-switcher { width: 100%; height: 250px; }
         }
     </style>
 </head>
 <body>
 
     <div class="top-ribbon">
-        <div>
-            <i class="fas fa-phone"></i> +233 (0) 302 123 456 | 
-            <i class="fas fa-map-marker-alt"></i> 12 Geo Lane, Accra, Ghana
-        </div>
+        <div><i class="fas fa-phone"></i> +233 (0) 302 123 456 | <i class="fas fa-map-marker-alt"></i> 12 Geo Lane, Accra, Ghana</div>
         <div class="socials">
-            <i class="fab fa-facebook"></i>
-            <i class="fab fa-twitter"></i>
-            <i class="fab fa-linkedin"></i>
-            <i class="fab fa-instagram"></i>
+            <i class="fab fa-facebook"></i> <i class="fab fa-twitter"></i>
+            <i class="fab fa-linkedin"></i> <i class="fab fa-instagram"></i>
         </div>
     </div>
 
     <header>
-        <div class="logo-area">
-            <i class="fas fa-globe-africa"></i> Sambus Geospatial
-        </div>
+        <div class="logo-area"><i class="fas fa-globe-africa"></i> Sambus Geospatial</div>
         <nav>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Store</a></li>
-                <li><a href="#">Training</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Blogs</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#">Home</a></li><li><a href="#">Store</a></li><li><a href="#">Training</a></li>
+                <li><a href="#">Projects</a></li><li><a href="#">Blogs</a></li><li><a href="#">About</a></li><li><a href="#">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -174,7 +172,7 @@
                 <source src="https://res.cloudinary.com/du2jcu1qy/video/upload/v1773387353/The_camera_move_202602021004_yc2yi_q45h7j.mp4" type="video/mp4">
             </video>
         </div>
-        <div class="text-switcher" id="switcher">
+        <div class="text-switcher">
             <div class="fade-text active">We Provide Top Notch Solution</div>
             <div class="fade-text">Our OEMs are Esri, Trimble, NV5 and Wingtra</div>
             <div class="fade-text">We are the sole Distributor of Esri in West Africa</div>
@@ -182,42 +180,30 @@
     </section>
 
     <section class="section-padding reveal">
-        <h2 style="text-align:center; margin-bottom:40px;">Featured Projects</h2>
+        <h2 class="section-title">Featured Projects</h2>
         <div class="grid-4">
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <div class="flip-front"><img src="https://picsum.photos/400/300?random=1" alt="Project"></div>
-                    <div class="flip-back">
-                        <h3>Urban Planning</h3>
-                        <p>Mapping smart cities with precision GIS data.</p>
-                    </div>
+                    <div class="flip-front"><img src="https://picsum.photos/400/300?sig=11"></div>
+                    <div class="flip-back"><h3>Urban Planning</h3><p>Mapping smart cities with precision GIS data.</p></div>
                 </div>
             </div>
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <div class="flip-front"><img src="https://picsum.photos/400/300?random=2" alt="Project"></div>
-                    <div class="flip-back">
-                        <h3>Agriculture</h3>
-                        <p>Satellite imagery for crop health monitoring.</p>
-                    </div>
+                    <div class="flip-front"><img src="https://picsum.photos/400/300?sig=22"></div>
+                    <div class="flip-back"><h3>Agriculture</h3><p>Satellite imagery for crop health monitoring.</p></div>
                 </div>
             </div>
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <div class="flip-front"><img src="https://picsum.photos/400/300?random=3" alt="Project"></div>
-                    <div class="flip-back">
-                        <h3>Mining</h3>
-                        <p>Topographical surveys for large scale mining.</p>
-                    </div>
+                    <div class="flip-front"><img src="https://picsum.photos/400/300?sig=33"></div>
+                    <div class="flip-back"><h3>Mining</h3><p>Topographical surveys for large scale mining.</p></div>
                 </div>
             </div>
             <div class="flip-card">
                 <div class="flip-card-inner">
-                    <div class="flip-front"><img src="https://picsum.photos/400/300?random=4" alt="Project"></div>
-                    <div class="flip-back">
-                        <h3>Hydrology</h3>
-                        <p>Analyzing water flow patterns in West Africa.</p>
-                    </div>
+                    <div class="flip-front"><img src="https://picsum.photos/400/300?sig=44"></div>
+                    <div class="flip-back"><h3>Hydrology</h3><p>Analyzing water flow patterns in West Africa.</p></div>
                 </div>
             </div>
         </div>
@@ -225,14 +211,10 @@
 
     <section class="section-padding reveal">
         <div class="hero-row">
-            <div class="hero-text">
+            <div class="hero-card">
                 <h1 style="color:var(--primary); font-size:2.5rem;">ESRI ArcMap</h1>
-                <p style="margin:20px 0; line-height:1.6;">The world's leading GIS software. Create, analyze, and manage geographic data with unmatched precision and visualization capabilities.</p>
-                <ul style="padding-left:20px;">
-                    <li>Advanced Spatial Analytics</li>
-                    <li>3D Visualizations</li>
-                    <li>Global Data Sets</li>
-                </ul>
+                <p style="margin:20px 0; line-height:1.6; color: #555;">The world's leading GIS software. Create, analyze, and manage geographic data with unmatched precision and visualization capabilities.</p>
+                <a href="#" class="btn-learn">Learn More</a>
             </div>
             <div class="hero-video">
                 <video autoplay muted loop><source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"></video>
@@ -242,14 +224,10 @@
 
     <section class="section-padding reveal">
         <div class="hero-row reverse">
-            <div class="hero-text">
+            <div class="hero-card">
                 <h1 style="color:var(--primary); font-size:2.5rem;">Trimble Solutions</h1>
-                <p style="margin:20px 0; line-height:1.6;">High-precision hardware for surveying and mapping. Connecting the physical and digital worlds for construction and agriculture.</p>
-                <ul style="padding-left:20px;">
-                    <li>GNSS Systems</li>
-                    <li>Laser Scanning</li>
-                    <li>Total Stations</li>
-                </ul>
+                <p style="margin:20px 0; line-height:1.6; color: #555;">High-precision hardware for surveying and mapping. Connecting the physical and digital worlds for construction and agriculture.</p>
+                <a href="#" class="btn-learn">Learn More</a>
             </div>
             <div class="hero-video">
                 <video autoplay muted loop><source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4"></video>
@@ -258,7 +236,7 @@
     </section>
 
     <section class="section-padding reveal">
-        <h2 style="text-align:center; margin-bottom:40px;">Our Alliances</h2>
+        <h2 class="section-title">Our Alliance</h2>
         <div class="grid-4">
             <div class="flip-card alliance-card">
                 <div class="flip-card-inner">
@@ -269,104 +247,70 @@
             <div class="flip-card alliance-card">
                 <div class="flip-card-inner">
                     <div class="flip-front alliance-front"><h3>Trimble</h3></div>
-                    <div class="flip-back"><blockquote>"Transforming the way the world works."</blockquote></div>
+                    <div class="flip-back"><blockquote>"Transforming the way work is done."</blockquote></div>
                 </div>
             </div>
             <div class="flip-card alliance-card">
                 <div class="flip-card-inner">
                     <div class="flip-front alliance-front"><h3>NV5</h3></div>
-                    <div class="flip-back"><blockquote>"Delivering Solutions, Improving Lives."</blockquote></div>
+                    <div class="flip-back"><blockquote>"Delivering Solutions."</blockquote></div>
                 </div>
             </div>
             <div class="flip-card alliance-card">
                 <div class="flip-card-inner">
                     <div class="flip-front alliance-front"><h3>Wingtra</h3></div>
-                    <div class="flip-back"><blockquote>"High Resolution VTOL Drones."</blockquote></div>
+                    <div class="flip-back"><blockquote>"The VTOL Drone Standard."</blockquote></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="reveal">
-        <h2 style="text-align:center;">Our Business Partners</h2>
+    <section class="section-padding reveal" style="background:#f9f9f9;">
+        <h2 class="section-title">Project Gallery</h2>
         <div class="slider">
-            <div class="slide-track">
-                <div class="slide"><img src="https://via.placeholder.com/150x50?text=Partner+1"></div>
-                <div class="slide"><img src="https://via.placeholder.com/150x50?text=Partner+2"></div>
-                <div class="slide"><img src="https://via.placeholder.com/150x50?text=Partner+3"></div>
-                <div class="slide"><img src="https://via.placeholder.com/150x50?text=Partner+4"></div>
-                <div class="slide"><img src="https://via.placeholder.com/150x50?text=Partner+5"></div>
-                <div class="slide"><img src="https://via.placeholder.com/150x50?text=Partner+6"></div>
-                <div class="slide"><img src="https://via.placeholder.com/150x50?text=Partner+7"></div>
-                <div class="slide"><img src="https://via.placeholder.com/150x50?text=Partner+8"></div>
-                <div class="slide"><img src="https://via.placeholder.com/150x50?text=Partner+9"></div>
-                <div class="slide"><img src="https://via.placeholder.com/150x50?text=Partner+10"></div>
-                <div class="slide"><img src="https://via.placeholder.com/150x50?text=Partner+1"></div>
-                <div class="slide"><img src="https://via.placeholder.com/150x50?text=Partner+2"></div>
+            <div class="gallery-track" id="gallery">
+                <div class="gallery-item"><img src="https://picsum.photos/600/400?sig=1" onclick="openGallery(0)"></div>
+                <div class="gallery-item"><img src="https://picsum.photos/600/400?sig=2" onclick="openGallery(1)"></div>
+                <div class="gallery-item"><img src="https://picsum.photos/600/400?sig=3" onclick="openGallery(2)"></div>
+                <div class="gallery-item"><img src="https://picsum.photos/600/400?sig=4" onclick="openGallery(3)"></div>
+                <div class="gallery-item"><img src="https://picsum.photos/600/400?sig=5" onclick="openGallery(4)"></div>
+                <div class="gallery-item"><img src="https://picsum.photos/600/400?sig=6" onclick="openGallery(5)"></div>
             </div>
         </div>
     </section>
 
-    <section class="section-padding reveal">
-        <div class="testimonial-container">
-            <i class="fas fa-chevron-left arrow prev" onclick="changeTestimonial(-1)"></i>
-            <i class="fas fa-chevron-right arrow next" onclick="changeTestimonial(1)"></i>
-            
-            <div class="testimonial-slide active">
-                <img src="https://i.pravatar.cc/100?u=1" class="client-img">
-                <p>"The best GIS team in West Africa. Their Esri support is top-notch!"</p>
-                <h4>- John Doe, Ministry of Lands</h4>
-            </div>
-            <div class="testimonial-slide">
-                <img src="https://i.pravatar.cc/100?u=2" class="client-img">
-                <p>"Exceptional Trimble training. Our staff are now field experts."</p>
-                <h4>- Sarah Smith, Mining Co.</h4>
-            </div>
+    <div id="overlay">
+        <span class="overlay-close" onclick="closeGallery()">&times;</span>
+        <img id="overlayImg" src="">
+        <div class="overlay-nav">
+            <i class="fas fa-chevron-left" onclick="changeImg(-1)"></i>
+            <i class="fas fa-chevron-right" onclick="changeImg(1)"></i>
         </div>
-    </section>
-
-    <section class="section-padding reveal slider" style="background:#f4f4f4;">
-        <h2 style="text-align:center; margin-bottom: 20px;">Project Gallery</h2>
-        <div class="gallery-track">
-            <div class="gallery-item"><img src="https://picsum.photos/300/200?sig=1"></div>
-            <div class="gallery-item"><img src="https://picsum.photos/300/200?sig=2"></div>
-            <div class="gallery-item"><img src="https://picsum.photos/300/200?sig=3"></div>
-            <div class="gallery-item"><img src="https://picsum.photos/300/200?sig=4"></div>
-            <div class="gallery-item"><img src="https://picsum.photos/300/200?sig=5"></div>
-            <div class="gallery-item"><img src="https://picsum.photos/300/200?sig=1"></div>
-        </div>
-    </section>
+    </div>
 
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
                 <h4>Our Offices</h4>
-                <p><strong>Ghana:</strong> 12 Geo Lane, Accra</p>
-                <p><strong>Nigeria (Abuja):</strong> 45 Capital Dr, Maitama</p>
-                <p><strong>Nigeria (Lagos):</strong> 88 Lekki Phase 1</p>
+                <p>Ghana | Abuja | Lagos</p>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
-                <li>Store</li><li>Projects</li><li>Training</li><li>Courses</li><li>Library</li>
+                <li>Store</li><li>Projects</li><li>Training</li>
             </div>
             <div class="footer-col">
-                <h4>Connect With Us</h4>
-                <div class="socials" style="font-size: 1.5rem;">
-                    <i class="fab fa-facebook"></i> <i class="fab fa-twitter"></i> 
-                    <i class="fab fa-linkedin"></i> <i class="fab fa-youtube"></i>
-                </div>
+                <h4>Connect</h4>
+                <div class="socials"><i class="fab fa-facebook"></i> <i class="fab fa-linkedin"></i></div>
             </div>
         </div>
-        <div class="bottom-bar">
+        <div class="bottom-bar" style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #444; padding-top:20px;">
             <p>&copy; Sambus Geospatial 2026</p>
-            <button id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <i class="fas fa-arrow-up"></i> Top
-            </button>
+            <button id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">Top</button>
         </div>
     </footer>
 
     <script>
-        // --- 3. Text Switcher Logic ---
+        // Intro Text Switcher
         let textIndex = 0;
         const texts = document.querySelectorAll('.fade-text');
         setInterval(() => {
@@ -375,27 +319,32 @@
             texts[textIndex].classList.add('active');
         }, 4000);
 
-        // --- 9. Testimonial Logic ---
-        let testiIndex = 0;
-        const testimonials = document.querySelectorAll('.testimonial-slide');
-        function changeTestimonial(n) {
-            testimonials[testiIndex].classList.remove('active');
-            testiIndex = (testiIndex + n + testimonials.length) % testimonials.length;
-            testimonials[testiIndex].classList.add('active');
-        }
-        setInterval(() => changeTestimonial(1), 3000);
-
-        // --- Scroll Reveal Logic ---
-        const observerOptions = { threshold: 0.1 };
+        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Gallery Overlay Logic
+        const galleryImages = [
+            "https://picsum.photos/800/600?sig=1", "https://picsum.photos/800/600?sig=2",
+            "https://picsum.photos/800/600?sig=3", "https://picsum.photos/800/600?sig=4",
+            "https://picsum.photos/800/600?sig=5", "https://picsum.photos/800/600?sig=6"
+        ];
+        let currentImgIdx = 0;
+        const overlay = document.getElementById('overlay');
+        const overlayImg = document.getElementById('overlayImg');
+
+        function openGallery(idx) {
+            currentImgIdx = idx;
+            overlayImg.src = galleryImages[idx];
+            overlay.style.display = 'flex';
+        }
+        function closeGallery() { overlay.style.display = 'none'; }
+        function changeImg(n) {
+            currentImgIdx = (currentImgIdx + n + galleryImages.length) % galleryImages.length;
+            overlayImg.src = galleryImages[currentImgIdx];
+        }
     </script>
 </body>
 </html>
